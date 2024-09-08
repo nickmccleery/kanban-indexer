@@ -1,6 +1,6 @@
-# kanban_indexer
+# kanban-indexer
 
-`kanban_indexer` is a simple Python library that implements a lexicographic indexing system for ordered collections, such as columns on a Kanban board. It uses a chracter-based system that should allow for an arbitrary number of insertions between any two existing indices without the need for reindexing.
+`kanban-indexer` is a simple Python library that implements a lexicographic indexing system for ordered collections, such as columns on a Kanban board. It uses a chracter-based system that should allow for an arbitrary number of insertions between any two existing indices without the need for reindexing.
 
 ## Features
 
@@ -13,13 +13,13 @@
 
 ## Installation
 
-You can install `kanban_indexer` using pip:
+You can install `kanban-indexer` using pip:
 
-`pip install kanban_indexer`
+`pip install kanban-indexer`
 
 ## Usage
 
-Here's a quick example of how to use `kanban_indexer`:
+Here's a quick example of how to use `kanban-indexer`:
 
 ```python
 from kanban_indexer import compute_intermediate_index, compute_preceding_index, compute_succeeding_index
