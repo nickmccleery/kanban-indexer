@@ -34,7 +34,7 @@ print(before_b)  # Output: AZ
 
 # Generate an index after "Z"
 after_z = compute_succeeding_index("Z")
-print(after_z)  # Output: ZA
+print(after_z)  # Output: ZB
 ```
 
 ## API Reference
