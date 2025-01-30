@@ -98,15 +98,15 @@ def compute_intermediate_index(index_before: str, index_after: str):
     Raises:
         ValueError: If the input indices are not valid.
     """
-    # Validate input indices
+    # Validate input indices.
     validate_index(index_before)
     validate_index(index_after)
 
-    # Flip order if necessary
+    # Flip order if necessary.
     if index_before > index_after:
         index_before, index_after = index_after, index_before
 
-    position = ""
+    intermediate_index = ""
     expand_flag = False
     max_length = max(len(index_before), len(index_after))
 
@@ -126,19 +126,19 @@ def compute_intermediate_index(index_before: str, index_after: str):
         )
 
         if lo == hi:
-            position += ALPHA_MAP.to_char(lo)
+            intermediate_index += ALPHA_MAP.to_char(lo)
         elif (hi - lo) > 1:
-            position += ALPHA_MAP.to_char(compute_midpoint(lo, hi))
+            intermediate_index += ALPHA_MAP.to_char(compute_midpoint(lo, hi))
             expand_flag = False
-            return position
+            return intermediate_index
         else:
-            position += ALPHA_MAP.to_char(lo)
+            intermediate_index += ALPHA_MAP.to_char(lo)
             expand_flag = True
 
     if expand_flag:
-        position += ALPHABET_MIDPOINT
+        intermediate_index += ALPHABET_MIDPOINT
 
-    return position
+    return intermediate_index
 
 
 def compute_preceding_index(index: str) -> str:
