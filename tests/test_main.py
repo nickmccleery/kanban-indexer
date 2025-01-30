@@ -108,10 +108,11 @@ class TestIntermediateIndex(unittest.TestCase):
         self.assertEqual(k.compute_intermediate_index("BBB", "X"), "M")
 
     def test_compute_intermediate_index_with_more_complex_values_same_length(self):
-        self.assertEqual(k.compute_intermediate_index("BCBB", "BDBB"), "BCM")
+        self.assertEqual(k.compute_intermediate_index("BCBB", "BDBB"), "BCN")
 
     def test_compute_additional_intermediate_indices(self):
-        self.assertEqual(k.compute_intermediate_index("BBCB", "BBDB"), "BBCM")
+        self.assertEqual(k.compute_intermediate_index("BBCB", "BBDB"), "BBCN")
+        self.assertEqual(k.compute_intermediate_index("BBCB", "BBCZ"), "BBCN")
         self.assertEqual(k.compute_intermediate_index("B", "CDFW"), "BM")
         self.assertEqual(k.compute_intermediate_index("BBC", "BBM"), "BBH")
 
