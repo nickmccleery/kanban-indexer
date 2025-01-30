@@ -89,8 +89,9 @@ class TestIntermediateIndex(unittest.TestCase):
     def test_compute_intermediate_index_between_adjacent_letters(self):
         self.assertEqual(k.compute_intermediate_index("B", "C"), "BM")
 
-    def test_compute_intermediate_index_between_adjacent_letters_inter(self):
+    def test_compute_intermediate_index_between_adjacent_letters_padded(self):
         self.assertEqual(k.compute_intermediate_index("BM", "C"), "BS")
+        self.assertEqual(k.compute_intermediate_index("BX", "BZ"), "BY")
 
     def test_compute_intermediate_index_with_same_prefix(self):
         self.assertEqual(k.compute_intermediate_index("BC", "BD"), "BCM")

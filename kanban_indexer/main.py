@@ -111,14 +111,14 @@ def compute_intermediate_index(index_before: str, index_after: str):
     max_length = max(len(index_before), len(index_after))
 
     for i in range(max_length):
-        # Get the ordinal values, using ALPHABET_START as default for padding
+        # Get the ordinal values, using ALPHABET_START as default for padding.
         lo = (
             ALPHA_MAP.to_int(index_before[i])
             if i < len(index_before)
             else ALPHA_MAP.to_int(ALPHABET_START)
         )
 
-        # For the high value, use ALPHABET_END if we're expanding or beyond index length
+        # For the high value, use ALPHABET_END.
         hi = (
             ALPHA_MAP.to_int(index_after[i])
             if (i < len(index_after) and not expand_flag)
