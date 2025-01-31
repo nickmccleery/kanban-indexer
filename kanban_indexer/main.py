@@ -86,7 +86,7 @@ def compute_midpoint(ordinal_a: int, ordinal_b: int) -> int:
 
 def compute_intermediate_index(index_before: str, index_after: str):
     """
-    Computes the intermediate index between two given indices.
+    Computes the intermediate index between two given indices using an expansion flag approach.
 
     Args:
         index_before (str): The index of the item 'before' the target position.
@@ -97,10 +97,6 @@ def compute_intermediate_index(index_before: str, index_after: str):
 
     Raises:
         ValueError: If the input indices are not valid.
-
-    Note:
-        This function assumes that the input indices are in a valid format and
-        that the characters in the indices can be compared using the BiMap.
     """
     # Validate input indices.
     validate_index(index_before)
@@ -110,33 +106,39 @@ def compute_intermediate_index(index_before: str, index_after: str):
     if index_before > index_after:
         index_before, index_after = index_after, index_before
 
-    index_intermediate: str = ""
-    max_length: int = max(len(index_before), len(index_after))
+    intermediate_index = ""
+    expand_flag = False
+    max_length = max(len(index_before), len(index_after))
 
-    # Pad the shorter index with the min/max index characters.
-    index_before_pad = index_before.ljust(max_length, ALPHABET_START)
-    index_after_pad = index_after.ljust(max_length, ALPHABET_END)
-
-    # Early return for identical indices.
-    if index_before_pad == index_after_pad:
-        return index_intermediate + ALPHABET_MIDPOINT
-
-    # Compare and find the first diverging character
     for i in range(max_length):
-        current_before = ALPHA_MAP.to_int(index_before_pad[i])
-        current_after = ALPHA_MAP.to_int(index_after_pad[i])
+        # Get the ordinal values, using ALPHABET_START as default for padding.
+        lo = (
+            ALPHA_MAP.to_int(index_before[i])
+            if i < len(index_before)
+            else ALPHA_MAP.to_int(ALPHABET_START)
+        )
 
-        if current_before == current_after:
-            index_intermediate += index_before_pad[i]
+        # For the high value, use ALPHABET_END.
+        hi = (
+            ALPHA_MAP.to_int(index_after[i])
+            if (i < len(index_after) and not expand_flag)
+            else ALPHA_MAP.to_int(ALPHABET_END)
+        )
+
+        if lo == hi:
+            intermediate_index += ALPHA_MAP.to_char(lo)
+        elif (hi - lo) > 1:
+            intermediate_index += ALPHA_MAP.to_char(compute_midpoint(lo, hi))
+            expand_flag = False
+            return intermediate_index
         else:
-            midpoint = compute_midpoint(current_before, current_after)
+            intermediate_index += ALPHA_MAP.to_char(lo)
+            expand_flag = True
 
-            if midpoint != current_before:
-                index_intermediate += ALPHA_MAP.to_char(midpoint)
-            else:
-                index_intermediate += index_before_pad[i] + ALPHABET_MIDPOINT
+    if expand_flag:
+        intermediate_index += ALPHABET_MIDPOINT
 
-            return index_intermediate
+    return intermediate_index
 
 
 def compute_preceding_index(index: str) -> str:
